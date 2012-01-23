@@ -1,3 +1,13 @@
-%h1 Surveys
+%p
+  - if current_user
+    = link_to 'Add survey', new_survey_path, class: 'btn primary'
 
-= link_to 'Add survey', new_survey_path, class: 'btn primary'
+%h2 Surveys
+
+%ul
+  - @surveys.each do |survey|
+    %li
+      %h4
+        = survey.name
+        - if survey.user == current_user
+          %small= link_to 'edit', edit_survey_path(survey)

@@ -1,6 +1,13 @@
+- if @survey.errors.any?
+  .alert-message.block-message.error
+    %strong There were some errors with the survey preventing it from being saved:
+    %ul
+      - @survey.errors.full_messages.each do |message|
+        %li= message
+
 = form_for @survey, html: {class: 'form-stacked'} do |f|
   %fieldset
-    %legend== #{@survey.persisted? ? 'New' : 'Edit'} survey
+    %legend== #{@survey.persisted? ? 'Edit' : 'New'} survey
 
     .clearfix
       = f.label :name
@@ -14,4 +21,5 @@
 
     .actions
       = f.submit class: 'btn primary', value: 'Save'
-      = link_to 'Cancel', :back, class: 'btn'
+      = f.submit class: 'btn info', value: 'Save and continue editing'
+      = link_to 'Cancel', surveys_path, class: 'btn'

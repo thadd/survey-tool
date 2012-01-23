@@ -5,7 +5,7 @@ class User
   field :name
   field :email
 
-  validates_presence_of :uid
-
   has_many :surveys
+
+  validates_presence_of :uid
 end

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   def validate_user
     unless current_user
       session[:original_request] = request.url
-      redirect_to login_path
+      redirect_to root_url, alert: 'You must be logged in to view that page'
     end
   end
 end
