@@ -1,0 +1,14 @@
+development:
+  host: localhost
+  database: workplace_research_development
+
+test:
+  host: localhost
+  database: workplace_research_test
+
+staging:
+  uri: <%= ENV['MONGOHQ_URL'] %>
+
+production:
+  uri: <%= ENV['MONGOHQ_URL'] %>
+
