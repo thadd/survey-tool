@@ -1,5 +1,6 @@
 class Response
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :session
   field :answers, type: Hash, default: {}
