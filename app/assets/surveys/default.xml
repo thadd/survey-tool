@@ -132,6 +132,19 @@ See the Markdown reference below for more formatting tips.
       <question id="why-charlie" depends="feel-charlie" dependsvalue="1">...charlie</question>
     </questionset>
 
+    <!-- It's possible to have a blank page if all of the
+         questions on the page have dependencies and the
+         user did not meet any of them. In that case, you
+         may want to include an instruction block so there
+         is less confusion. -->
+    <instruction depends="pulldown-example" dependsvalue="1">
+Since you answered 1 on the pulldown example, there is nothing
+to see here.
+    </instruction>
+    <instruction depends="pulldown-example" dependsvalue="anything">
+Since you answered 3 on the pulldown example, there is nothing
+to see here.
+    </instruction>
   </page>
 
   <!-- The confirmation is required and is displayed after
