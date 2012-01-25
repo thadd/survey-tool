@@ -1,13 +1,39 @@
-%p
-  - if current_user
-    = link_to 'Add survey', new_survey_path, class: 'btn primary'
+- if current_user
+  - unless @surveys.any?
+    .alert-message.block-message.warning
+      You haven't created any surveys yet. Get started creating your first survey by
+      == #{link_to 'clicking here', new_survey_path}.
 
-%h2 Surveys
+  - else
+    %p
+      = link_to 'Add survey', new_survey_path, class: 'btn primary'
+    
+    %h3 Your surveys
+  
+    %ul
+      - @surveys.each do |survey|
+        %li
+          %h4
+            = survey.name
+            %small= link_to 'edit', edit_survey_path(survey)
+    
+          %p
+            %small= link_to 'Delete this survey', survey_path(survey), method: :delete, confirm: "This will permanently delete this survey and all responses! Are you sure you wish to proceed?"
+    
+          %p
+            Public survey link
+            = link_to new_survey_response_url(survey), new_survey_response_url(survey)
+          %p
+            Responses:
+            == #{survey.responses.count} total (#{survey.responses.incomplete.count} incomplete)
+          %p
+            = link_to 'Download CSV', survey_responses_path(survey, format: :csv), class: 'btn small info'
+            = link_to 'Clear responses', clear_survey_path(survey), method: :delete, class: 'btn small danger', confirm: "This will permenantly delete all responses to this survey! Are you sure you wish to proceed?"
 
-%ul
-  - @surveys.each do |survey|
-    %li
-      %h4
-        = survey.name
-        - if survey.user == current_user
-          %small= link_to 'edit', edit_survey_path(survey)
+- else
+  .well
+    %h2 Welcome to the survey tool at WorkforceResearch.org!
+
+    %p
+      This tool is used to create powerful surveys for academic or market research. To get started,
+      log in using a Google account and create your first survey.

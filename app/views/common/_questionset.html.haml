@@ -10,8 +10,11 @@
             = text || raw("&nbsp;")
     %tbody
       - questionset[:questions].each do |question|
-        %tr
-          %td=question[:text]
+        %tr{style: hidden_if_dependent(question, @response)}
+          %td
+            = question[:text]
+            = radio_button "response[page_answers]", question[:id], "", style: "display:none;"
+
           - @survey.scale_options(questionset[:scale]).each do |value,text|
             %td
-              %input{name: question[:id], value: value, type: :radio}
+              = radio_button "response[page_answers]", question[:id], value

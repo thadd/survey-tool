@@ -3,7 +3,7 @@ class SurveysController < ApplicationController
   before_filter :get_survey, except: [:index, :new, :create]
 
   def index
-    @surveys = Survey.all
+    @surveys = current_user.surveys if current_user
   end
 
   def new
@@ -46,6 +46,11 @@ class SurveysController < ApplicationController
   end
 
   def preview
+  end
+
+  def clear
+    @survey.responses.delete_all
+    redirect_to :back
   end
 
   protected

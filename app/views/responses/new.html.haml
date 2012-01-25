@@ -1,0 +1,9 @@
+%h1= @survey.name
+
+- if @page == @survey.page_count
+  = render partial: '/common/confirmation'
+- else
+  = form_tag submit_survey_responses_path(@survey), class: 'form-stacked' do
+    = hidden_field_tag 'response[completed_page]', @page
+    = hidden_field_tag 'response[session]', session_id
+    = render partial: '/common/page', object: @page

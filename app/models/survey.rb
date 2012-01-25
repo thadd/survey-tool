@@ -1,10 +1,14 @@
+require 'csv'
+
 class Survey
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :name
   field :xml, default: File.new(File.join(Rails.root, 'app', 'assets', 'surveys', 'default.xml')).read
 
   belongs_to :user
+  embeds_many :responses
 
   validates_presence_of :name
   validate :xml_should_be_valid
@@ -90,12 +94,49 @@ class Survey
     options
   end
 
+  def generate_csv
+    return "" unless responses.complete.any?
+
+    # Get the headers from the first complete response
+    first_complete = responses.complete.first
+    headers = ['time','complete']
+
+    first_complete.answers.each do |key,value|
+      unless value.is_a? Hash
+        headers << key
+      else
+        value.each do |subkey,subvalue|
+          headers << "#{key}/#{subkey}"
+        end
+      end
+    end
+
+    CSV.generate do |csv|
+      csv << headers
+
+      responses.each do |response|
+        row = [response.updated_at, response.finished]
+
+        response.answers.each do |key,value|
+          unless value.is_a? Hash
+            row << value
+          else
+            value.each do |subkey,subvalue|
+              row << subvalue
+            end
+          end
+        end
+
+        csv << row
+      end
+    end
+  end
+
+  protected
+
   def doc
     @doc ||= Nokogiri::XML(self.xml)
   end
-
-  # TODO: move this bitch back
-  protected
 
   def xml_should_be_valid
     doc.errors.each do |error|

@@ -1,0 +1,10 @@
+    <!-- A set of questions that use the same scale -->
+    <questionset scale="agree-disagree-brief">
+      How do you feel about...
+      <question id="qd4" depends="q4" dependsvalue="4">...blue</question>
+      <question id="qd5" depends="q5" dependsvalue="4">...dogs</question>
+      <question id="qd6" depends="q6" dependsvalue="4">...blue dogs</question>
+      <question id="qd7" depends="q7" dependsvalue="4">...taking online surveys</question>
+      <question id="qd8" depends="q8" dependsvalue="4">starting answers without ellipses</question>
+    </questionset>
+

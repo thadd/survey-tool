@@ -1,88 +1,144 @@
+<!-- Surveys are defined using XML. The comments (defined
+     using the notation surrounding this block) will walk
+     you through the different tags and how to use them to
+     build your survey.
+     
+     It's probably easiest to just start changing options
+     in the survey and see how they are affected in the
+     preview. -->
 <survey>
-  <page title="The first page">
-
-    <instruction>
-### This is a survey instruction block
-
-Make sure there are no spaces at the beginning of the line,
-otherwise the system will think that you're trying to display
-source code
-
-This instruction block uses Markdown formatting. Markdown
-makes it easy to make things *italic*, **bold**, or to
-[add links](http://google.com) to your text.
-    </instruction>
-
-    <!-- Short text field -->
-    <question id="q1" format="shorttext">
-      Lorem ipsum dolor sit amet?
-    </question>
-
-    <!-- Long text field -->
-    <question id="q2" format="longtext">
-      Option sit claritatem usus suscipit usus. 
-    </question>
-
-    <!-- Scale -->
-    <question id="q3" format="scale" scale="agree-disagree">
-      Velit id eum et videntur quod?
-    </question>
-
-    <!-- Pulldown menu -->
-    <question id="gender" format="pulldown">
-      Gender      
-      <option value="M">Male</option>
-      <option value="F">Female</option>
-      <option value="N">No response</option>
-    </question>
-
-    <!-- Single select (radio buttons) -->
-    <question id="age" format="option">
-      What is your age?
-      <option value="20-">1-20</option>
-      <option value="21+">21-50</option>
-      <option value="50+">51+</option>
-    </question>
-
-    <!-- A set of questions that use the same scale -->
-    <questionset scale="agree-disagree-brief">
-      How do you feel about...
-      <question id="q4">...blue</question>
-      <question id="q5">...dogs</question>
-      <question id="q6">...blue dogs</question>
-      <question id="q7">...taking online surveys</question>
-      <question id="q8">starting answers without ellipses</question>
-    </questionset>
-  </page>
-
-  <!-- You can have as many pages as needed -->
-  <page>
-    <question id="q6" format="shorttext">
-      Second question (but on the second page)
-    </question>
-    <question id="q7" format="longtext">
-      Last question!
-    </question>
-  </page>
-
-  <!-- Confirmation is optional. It is displayed after the responses have been submitted -->
-  <confirmation>
-Thank you for taking my survey.
-
-If you have any questions, please visit our [website](http://cnn.com).
-  </confirmation>
-
-  <!-- Scales are defined for scale-based questions. Value is included in your results data -->
+  <!-- Scales are pre-defined for scale-based questions. The
+       scale ID is referenced when you create the question
+       and the value is included in your results data. You
+       can create as many scales as you need, but the IDs
+       must be unique -->
   <scale id="agree-disagree-brief">
     <option value="1">SA</option>
     <option value="2"/>
     <option value="3"/>
     <option value="4">SD</option>
   </scale>
+
   <scale id="agree-disagree">
     <option value="1">Strongly agree</option>
     <option value="2">Agree</option>
     <option value="3">Disagree</option>
     <option value="4">Strongly disagree</option>
   </scale>
+
+  <!-- This tag defines a page of the survey with an
+       optional title displayed at the top of the page -->
+  <page title="The first page">
+
+    <instruction>
+### This is a survey instruction block
+
+Instruction blocks can be used to give users more information
+about the survey, direct them how to answer subsequent
+questions, or anything else you want to include.
+
+Make sure there are no spaces at the beginning of the line,
+otherwise the system will think that you are trying to display
+source code.
+
+This instruction block uses Markdown formatting. Markdown
+makes it easy to make things *italic*, **bold**, or to
+[add links](http://google.com) to your text.
+
+See the Markdown reference below for more formatting tips.
+    </instruction>
+
+    <!-- This is a short text field and provides a single
+         line of text entry. Remember to give each question
+         a unique ID. -->
+    <question id="q1" format="shorttext">
+      Decima nihil molestie legunt quam sollemnes. 
+    </question>
+
+    <!-- This is a multi-line text field for longer
+         responses. -->
+    <question id="q2" format="longtext">
+      Option sit claritatem usus suscipit usus. 
+    </question>
+
+    <!-- This provides the user with a set of radio buttons
+         that reflect one of your predefined scales. The
+         user can only select one option in a scale. -->
+    <question id="q3" format="scale" scale="agree-disagree">
+      Velit id eum et videntur quod?
+    </question>
+
+    <!-- A pull-down menu allowing the user to choose one
+         of several options. This option is very similar to
+         a scale, but allows you to include more options
+         without making the page too long. -->
+    <question id="pulldown-example" format="pulldown">
+      Eodem nobis formas euismod nihil saepius. 
+
+      <!-- The value is what gets printed to your results
+           data while the text between the tags is what is
+           displayed to your users. -->
+      <option value="1">Option 1</option>
+      <option value="2">Option 2</option>
+      <option value="anything">Option 3</option>
+    </question>
+
+    <!-- Checkboxes that allow the user to select one or
+         more answers. In the results data, the following
+         example would have three columns: alpha/a, alpha/b,
+         and alpha/c with a 1 or 0 in the column depending
+         on whether the user checked the option. -->
+    <question id="alpha" format="checkbox">
+      Eum eros volutpat ut in nulla. 
+      <option value="a">Response A</option>
+      <option value="b">Response B</option>
+      <option value="c">Response C</option>
+    </question>
+
+    <!-- A question set is a group of scale questions that
+         will be displayed in a table and that will use
+         the same scale for their values. -->
+    <questionset scale="agree-disagree-brief">
+      How do you feel about...
+      <question id="feel-alpha">...alpha</question>
+      <question id="feel-bravo">...bravo</question>
+      <question id="feel-charlie">...charlie</question>
+    </questionset>
+  </page>
+
+  <!-- You can have as many pages as needed -->
+  <page>
+
+    <!-- Any question on the second or later page can have
+         a dependency on a question from a previous page. To
+         set a dependency, use the "depends" attribute and
+         reference the ID of the earlier question, then set
+         the "dependsvalue" to the value the earlier
+         question must have in order for this question to
+         be displayed.
+         
+         Hidden questions will still appear in the results
+         data, but will have blank values. -->
+    <question id="q6" depends="pulldown-example" dependsvalue="2" format="shorttext">
+      This question only appears if the pulldown on the previous page
+      had a value of 2 (Option 2).
+    </question>
+    
+    <!-- Dependencies can also be used inside question sets. -->
+    <questionset scale="agree-disagree-brief">
+      Why don't you like...
+      <question id="why-alpha" depends="feel-alpha" dependsvalue="1">...alpha</question>
+      <question id="why-bravo" depends="feel-bravo" dependsvalue="1">...bravo</question>
+      <question id="why-charlie" depends="feel-charlie" dependsvalue="1">...charlie</question>
+    </questionset>
+
+  </page>
+
+  <!-- The confirmation is required and is displayed after
+       the responses have been submitted -->
+  <confirmation>
+Thank you for taking my survey.
+
+If you have any questions, please visit our [website](http://workplaceresearch.org).
+  </confirmation>
 </survey>

@@ -1,9 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  helper_method :current_user
+  helper_method :current_user, :session_id
 
   protected
+
+  def session_id
+    @session_id ||= request.session[:session_id]
+  end
 
   def current_user
     @current_user ||= User.where(_id: session[:user_id]).first

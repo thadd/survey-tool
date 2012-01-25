@@ -1,0 +1,9 @@
+.clearfix
+  %label{for: question_id(checkbox_question[:id])}= checkbox_question[:text]
+  .input
+    %ul.inputs-list
+      - checkbox_question[:options].each do |value,text|
+        %li
+          %label
+            = check_box question_id(checkbox_question[:id]), value
+            %span= text

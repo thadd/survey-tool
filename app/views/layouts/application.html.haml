@@ -23,7 +23,10 @@
       .topbar-inner
         .container
           %h3
-            .brand WorkplaceResearch.org Surveys
+            - if current_user
+              = link_to 'WorkplaceResearch.org Surveys', root_path
+            - else
+              .brand WorkplaceResearch.org Surveys
 
           - if current_user
             %ul.nav.secondary-nav
@@ -31,9 +34,11 @@
                 = link_to current_user.name, '#', class: 'dropdown-toggle'
                 %ul.dropdown-menu
                   %li= link_to 'Log out', session_path, :method => :delete
+
           - else
-            %ul.nav.secondary-nav
-              = link_to 'Login', '/auth/google'
+            - unless @hide_login_link
+              %ul.nav.secondary-nav
+                = link_to 'Login', '/auth/google'
 
     .container
       - if flash.any?

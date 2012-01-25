@@ -1,0 +1,4 @@
+.clearfix
+  %label{for: question_id(pulldown_question[:id])}= pulldown_question[:text]
+  .input
+    = select 'response[page_answers]', pulldown_question[:id], pulldown_question[:options].collect{|key,value| [value,key]}

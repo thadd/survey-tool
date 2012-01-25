@@ -1,0 +1,4 @@
+.clearfix
+  %label{for: question_id(longtext_question[:id])}= longtext_question[:text]
+  .input
+    = text_area_tag question_id(longtext_question[:id]), nil, rows: 3, class: 'span8'

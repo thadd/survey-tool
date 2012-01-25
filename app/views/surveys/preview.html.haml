@@ -16,7 +16,7 @@
   - (0...@survey.page_count).each do |i|
     %div{id: "page-#{i}", class: (i == 0 ? 'active' : nil)}
       %form.form-stacked
-        = render partial: 'page', object: i
+        = render partial: '/common/page', object: i
   - if @survey.confirmation
     %div{id: "confirmation-page"}
-      = render partial: 'confirmation'
+      = render partial: '/common/confirmation'
