@@ -1,0 +1,17 @@
+.clearfix
+  %table.condensed-table.zebra-striped
+    %thead
+      %tr
+        %th=questionset[:text]
+        - @survey.scale_options(questionset[:scale]).each do |value,text|
+          %th
+            = value
+            %br
+            = text || raw("&nbsp;")
+    %tbody
+      - questionset[:questions].each do |question|
+        %tr
+          %td=question[:text]
+          - @survey.scale_options(questionset[:scale]).each do |value,text|
+            %td
+              %input{name: question[:id], value: value, type: :radio}

@@ -1,0 +1,22 @@
+%h1
+  [Preview] 
+  = @survey.name
+  %small
+    = link_to "Return to editing survey", edit_survey_path(@survey)
+
+%ul.pills{'data-pills' => 'pills'}
+  - (0...@survey.page_count).each do |i|
+    %li{class: (i == 0 ? 'active' : nil)}
+      = link_to "Page #{i+1}", "#page-#{i}"
+  - if @survey.confirmation
+    %li{class: (@survey.page_count == 0 ? 'active' : nil)}
+      = link_to "Confirmation page", "#confirmation-page"
+
+.pill-content
+  - (0...@survey.page_count).each do |i|
+    %div{id: "page-#{i}", class: (i == 0 ? 'active' : nil)}
+      %form.form-stacked
+        = render partial: 'page', object: i
+  - if @survey.confirmation
+    %div{id: "confirmation-page"}
+      = render partial: 'confirmation'

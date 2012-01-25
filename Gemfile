@@ -22,11 +22,11 @@ end
 
 gem 'jquery-rails'
 
+gem 'BlueCloth'
 gem 'bson_ext'
 gem 'gravatar-ultimate'
 gem 'haml-rails'
-gem 'hashie'
 gem 'mongoid'
 gem 'omniauth'
 gem 'omniauth-openid'
-gem 'xml-simple'
+gem 'nokogiri'

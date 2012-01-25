@@ -15,11 +15,15 @@
         = f.text_field :name, class: 'span6'
 
     .clearfix
+
+    .clearfix
       = f.label :xml, 'Survey XML'
       .input
         = f.text_area :xml, rows: 20, class: 'span12'
+        %span.help-block= link_to 'Markdown reference', '/markdown-reference/index.html', class: 'fancybox fancybox.iframe'
 
     .actions
       = f.submit class: 'btn primary', value: 'Save'
       = f.submit class: 'btn info', value: 'Save and continue editing'
+      = f.submit class: 'btn info', value: 'Save and preview'
       = link_to 'Cancel', surveys_path, class: 'btn'

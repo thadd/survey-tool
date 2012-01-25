@@ -1,0 +1,13 @@
+.clearfix
+  %label{for: scale_question[:id]}= scale_question[:text]
+  .input
+    %ul.inputs-list
+      - @survey.scale_options(scale_question[:scale]).each do |value,text|
+        %li
+          %label
+            %input{name: scale_question[:id], value: value, type: :radio}
+            %span
+              - if text
+                == #{value} - #{text}
+              - else
+                == #{value}

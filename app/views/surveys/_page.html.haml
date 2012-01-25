@@ -1,0 +1,32 @@
+.page-header
+  %h2
+    == Page #{page+1}
+    - if @survey.page_title(page)
+      %small= @survey.page_title(page)
+
+  %fieldset
+    - @survey.components(page).each do |component|
+      - case component[:type]
+      - when 'instruction'
+        .well{class: component[:type]}
+          =raw md(component[:text])
+      - when 'question'
+        - case component[:format]
+        - when 'shorttext'
+          = render partial: 'shorttext_question', object: component
+        - when 'longtext'
+          = render partial: 'longtext_question', object: component
+        - when 'scale'
+          = render partial: 'scale_question', object: component
+        - when 'option'
+          = render partial: 'option_question', object: component
+        - when 'pulldown'
+          = render partial: 'pulldown_question', object: component
+        - else
+          = debug component
+      - when 'questionset'
+        = render partial: 'questionset', object: component
+      - else
+        = debug component
+    .actions
+      %input.btn.primary{type: :submit, value: page == @survey.page_count-1 ? 'Submit responses' : 'Save and continue to next page'}

@@ -1,6 +1,9 @@
 WorkplaceResearch::Application.routes.draw do
-  resources :surveys
   resource :session
+
+  resources :surveys do
+    get 'preview', on: :member
+  end
 
   match '/auth/:provider/callback', to: 'sessions#callback'
 

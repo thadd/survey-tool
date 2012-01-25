@@ -1,0 +1,6 @@
+.clearfix
+  %label{for: pulldown_question[:id]}= pulldown_question[:text]
+  .input
+    %select{name: pulldown_question[:id], id: pulldown_question[:id]}
+      - pulldown_question[:options].each do |value,text|
+        %option{value: value}= text

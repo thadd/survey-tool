@@ -29,6 +29,8 @@ class SurveysController < ApplicationController
       if params[:commit] == "Save and continue editing"
         flash.now[:notice] = 'Saved survey'
         render 'edit'
+      elsif params[:commit] == "Save and preview"
+        redirect_to action: 'preview'
       else
         redirect_to root_url, notice: 'Saved survey'
       end
@@ -41,6 +43,9 @@ class SurveysController < ApplicationController
     @survey.destroy
 
     redirect_to root_url, notice: 'Removed survey'
+  end
+
+  def preview
   end
 
   protected
