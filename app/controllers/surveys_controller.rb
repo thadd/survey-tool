@@ -16,7 +16,11 @@ class SurveysController < ApplicationController
     @survey = current_user.surveys.build(params[:survey])
 
     if @survey.save
-      redirect_to root_url, notice: 'Added survey'
+      if params[:commit] == "Save and preview"
+        redirect_to preview_survey_url(@survey)
+      else
+        redirect_to root_url, notice: 'Added survey'
+      end
     else
       render 'new'
     end
