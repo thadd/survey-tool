@@ -20,7 +20,7 @@ end
 
 gem 'jquery-rails'
 
-gem 'BlueCloth'
+gem 'BlueCloth', :require => 'bluecloth'
 gem 'bson_ext'
 gem 'gravatar-ultimate'
 gem 'haml-rails'

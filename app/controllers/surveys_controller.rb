@@ -30,7 +30,7 @@ class SurveysController < ApplicationController
         flash.now[:notice] = 'Saved survey'
         render 'edit'
       elsif params[:commit] == "Save and preview"
-        redirect_to action: 'preview'
+        redirect_to preview_survey_url(@survey)
       else
         redirect_to root_url, notice: 'Saved survey'
       end
