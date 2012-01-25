@@ -8,8 +8,9 @@
   - @survey.components(page).each do |component|
     - case component[:type]
     - when 'instruction'
-      .well{class: component[:type]}
-        =raw md(component[:text])
+      %div{style: hidden_if_dependent(component, @response)}
+        .well{class: component[:type]}
+          =raw md(component[:text])
     - when 'question'
       %div{style: hidden_if_dependent(component, @response)}
         - case component[:format]
