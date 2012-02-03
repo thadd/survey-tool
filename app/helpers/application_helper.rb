@@ -7,21 +7,32 @@ module ApplicationHelper
     "response[page_answers][#{id}]"
   end
 
-  def hidden_if_dependent(component, response)
+  def dependent_options(component, response)
     style = ""
+
+    options = {}
+
+    if component[:depends] && preview?
+      options[:title] = "Dependent on #{component[:depends]} having value #{component[:dependsvalue]}"
+      options[:class] = "dependent"
+    end
 
     if response
       if component[:depends] && answer = response.answers[component[:depends]]
-        style = "display:none;"
+        options[:style] = "display:none;"
 
         if answer.is_a? Hash
-          style = "" if answer[component[:dependsvalue]] == "1"
+          options[:style] = "" if answer[component[:dependsvalue]] == "1"
         else
-          style = "" if answer == component[:dependsvalue]
+          options[:style] = "" if answer == component[:dependsvalue]
         end
       end
     end
 
-    style
+    options
+  end
+
+  def preview?
+    params[:action] == 'preview'
   end
 end

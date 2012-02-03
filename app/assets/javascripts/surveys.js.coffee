@@ -8,3 +8,5 @@ $(document).ready ->
 
   $('.fancybox').fancybox
     margin: 100
+
+  $('fieldset input[type="submit"], .dependent').twipsy()

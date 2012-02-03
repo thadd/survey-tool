@@ -4,17 +4,17 @@
       %tr
         %th=questionset[:text]
         - @survey.scale_options(questionset[:scale]).each do |value,text|
-          %th
+          %th.cell-centered
             = value
             %br
             = text || raw("&nbsp;")
     %tbody
       - questionset[:questions].each do |question|
-        %tr{style: hidden_if_dependent(question, @response)}
+        %tr{dependent_options(question, @response)}
           %td
             = question[:text]
             = radio_button "response[page_answers]", question[:id], "", style: "display:none;"
 
           - @survey.scale_options(questionset[:scale]).each do |value,text|
-            %td
+            %td.cell-centered
               = radio_button "response[page_answers]", question[:id], value

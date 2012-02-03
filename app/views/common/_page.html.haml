@@ -4,15 +4,15 @@
     - if @survey.page_title(page)
       %small= @survey.page_title(page)
 
-%fieldset
+%fieldset{class: (preview? ? 'preview' : nil)}
   - @survey.components(page).each do |component|
     - case component[:type]
     - when 'instruction'
-      %div{style: hidden_if_dependent(component, @response)}
+      %div{dependent_options(component, @response)}
         .well{class: component[:type]}
           =raw md(component[:text])
     - when 'question'
-      %div{style: hidden_if_dependent(component, @response)}
+      %div{dependent_options(component, @response)}
         - case component[:format]
         - when 'shorttext'
           = render partial: '/common/shorttext_question', object: component
@@ -31,4 +31,4 @@
     - else
       = debug component
   .actions
-    %input.btn.primary{type: :submit, value: page == @survey.page_count-1 ? 'Submit responses' : 'Save and continue to next page'}
+    %input.btn.primary{type: :submit, value: page == @survey.page_count-1 ? 'Submit responses' : 'Save and continue to next page', title: (preview? ? 'Buttons inactive in preview mode' : nil)}
