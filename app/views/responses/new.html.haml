@@ -3,7 +3,9 @@
 - if @page == @survey.page_count
   = render partial: '/common/confirmation'
 - else
-  = form_tag submit_survey_responses_path(@survey), class: 'form-stacked' do
-    = hidden_field_tag 'response[completed_page]', @page
-    = hidden_field_tag 'response[session]', session_id
-    = render partial: '/common/page', object: @page
+  .page-container{check_for_autosubmit(@survey.page_dependency(@page), @response)}
+    .loading Loading next page&#8230;
+    = form_tag submit_survey_responses_path(@survey), class: 'form-stacked', style: 'display:none;' do
+      = hidden_field_tag 'response[completed_page]', @page
+      = hidden_field_tag 'response[session]', session_id
+      = render partial: '/common/page', object: @page

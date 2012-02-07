@@ -24,6 +24,15 @@ class Survey
     doc.xpath("/survey/page").count
   end
 
+  def page_dependency(page)
+    if doc.xpath("//page")[page].has_attribute?("depends") 
+      output = {}
+      output[:depends] = doc.xpath("//page")[page].attribute("depends").value
+      output[:dependsvalue] = doc.xpath("//page")[page].attribute("dependsvalue").value if doc.xpath("//page")[page].has_attribute?("dependsvalue")
+      return output
+    end
+  end
+
   def page_title(page)
     doc.xpath("//page")[page].attribute("title").value if doc.xpath("//page")[page].has_attribute?("title")
   end

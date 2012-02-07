@@ -10,3 +10,9 @@ $(document).ready ->
     margin: 100
 
   $('fieldset input[type="submit"], .dependent').twipsy()
+
+  if $('.page-container').hasClass('autosubmit')
+    $('.page-container form').submit()
+  else
+    $('.loading').hide()
+    $('.page-container form').show()

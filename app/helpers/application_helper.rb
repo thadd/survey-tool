@@ -32,6 +32,22 @@ module ApplicationHelper
     options
   end
 
+  def check_for_autosubmit(dependency, response)
+    if dependency && response
+      if dependency[:depends] && answer = response.answers[dependency[:depends]]
+        autosubmit = true
+
+        if answer.is_a? Hash
+          autosubmit = false if answer[dependency[:dependsvalue]] == "1"
+        else
+          autosubmit = false if answer == dependency[:dependsvalue]
+        end
+      end
+    end
+
+    autosubmit ? {class: 'autosubmit'} : {}
+  end
+
   def preview?
     params[:action] == 'preview'
   end

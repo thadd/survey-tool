@@ -1,8 +1,12 @@
 .page-header
   %h2
-    == Page #{page+1}
     - if @survey.page_title(page)
-      %small= @survey.page_title(page)
+      = @survey.page_title(page)
+    - else
+      == Page #{page+1}
+    - if preview? && @survey.page_dependency(page)
+      %small
+        == Dependent on #{@survey.page_dependency(page)[:depends]} having value #{@survey.page_dependency(page)[:dependsvalue]}
 
 %fieldset{class: (preview? ? 'preview' : nil)}
   - @survey.components(page).each do |component|
