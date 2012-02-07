@@ -16,3 +16,7 @@ $(document).ready ->
   else
     $('.loading').hide()
     $('.page-container form').show()
+
+  $('table').each ->
+    if $(this).find('tr:visible').length == 1
+      $(this).hide()
