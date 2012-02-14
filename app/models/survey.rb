@@ -108,7 +108,7 @@ class Survey
 
     # Get the headers from the first complete response
     first_complete = responses.complete.first
-    headers = ['time','complete']
+    headers = ['time begun', 'time completed', 'complete']
 
     first_complete.answers.each do |key,value|
       unless value.is_a? Hash
@@ -124,7 +124,7 @@ class Survey
       csv << headers
 
       responses.each do |response|
-        row = [response.updated_at, response.finished]
+        row = [response.created_at, response.updated_at, response.finished]
 
         response.answers.each do |key,value|
           unless value.is_a? Hash
