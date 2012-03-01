@@ -110,7 +110,10 @@ class Survey
     first_complete = responses.complete.first
     headers = ['time begun', 'time completed', 'complete']
 
+    keys = []
+
     first_complete.answers.each do |key,value|
+      keys << key
       unless value.is_a? Hash
         headers << key
       else
@@ -126,12 +129,13 @@ class Survey
       responses.each do |response|
         row = [response.created_at, response.updated_at, response.finished]
 
-        response.answers.each do |key,value|
-          unless value.is_a? Hash
-            row << value
+        keys.each do |key|
+
+          unless first_complete.answers[key].is_a? Hash
+            row << (response.answers[key] rescue "")
           else
-            value.each do |subkey,subvalue|
-              row << subvalue
+            first_complete.answers[key].each do |subkey,subvalue|
+              row << (response.answers[key][subkey] rescue "")
             end
           end
         end
