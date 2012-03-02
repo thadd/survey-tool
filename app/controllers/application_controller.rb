@@ -6,8 +6,9 @@ class ApplicationController < ActionController::Base
   protected
 
   def session_id
-    Rails.logger.info "Got session ID of #{@session_id} #{request.session_options[:id]}"
-    @session_id ||= request.session_options[:id]
+    session[:unique] ||= Digest.hexencode("#{request.remote_ip}-#{Time.now}")
+    Rails.logger.info "UNIQUE IS #{session[:unique]}"
+    @session_id ||= session[:unique]
   end
 
   def current_user
