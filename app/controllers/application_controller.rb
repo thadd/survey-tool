@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def session_id
+    Rails.logger.info "Got session ID of #{@session_id} #{request.session[:session_id]}"
     @session_id ||= request.session[:session_id]
   end
 

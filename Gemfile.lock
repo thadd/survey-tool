@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/codebrew/mongoid_session_store.git
+  revision: 1563a150ec15ddc5c77827ed8f47bdca7896428d
+  specs:
+    mongoid_session_store (2.1.0)
+      mongoid (~> 2.3)
+      rails (~> 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -144,6 +152,7 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   mongoid
+  mongoid_session_store!
   nokogiri
   omniauth
   omniauth-openid
