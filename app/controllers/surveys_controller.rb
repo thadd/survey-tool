@@ -31,8 +31,9 @@ class SurveysController < ApplicationController
 
     if @survey.save
       if params[:commit] == "Save and continue editing"
-        flash.now[:notice] = 'Saved survey'
-        render 'edit'
+        flash[:notice] = 'Saved survey'
+        flash[:scroll_top] = params[:scroll_top]
+        redirect_to edit_survey_url(@survey)
       elsif params[:commit] == "Save and preview"
         redirect_to preview_survey_url(@survey)
       else
