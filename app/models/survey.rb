@@ -13,6 +13,8 @@ class Survey
   validates_presence_of :name
   validate :xml_should_be_valid
 
+  default_scope order_by(updated_at: :desc)
+
   def self.human_attribute_name(*args)
     case args[0]
     when :xml then 'Survey XML'
