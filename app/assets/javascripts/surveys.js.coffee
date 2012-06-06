@@ -16,9 +16,10 @@ $(document).ready ->
     code_mirror = CodeMirror.fromTextArea(
       $('#survey_xml')[0]
       {
-        tabSize: 2
-        lineNumbers: true
         fixedGutter: true
+        lineNumbers: true
+        lineWrapping: true
+        tabSize: 2
         theme: 'rubyblue'
         onCursorActivity: update_positions
         onScroll: update_positions
