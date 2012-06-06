@@ -15,12 +15,10 @@ class SurveysController < ApplicationController
   def create
     @survey = current_user.surveys.build(params[:survey])
 
+    flash[:scroll_top] = params[:scroll_top]
+
     if @survey.save
-      if params[:commit] == "Save and preview"
-        redirect_to preview_survey_url(@survey)
-      else
-        redirect_to root_url, notice: 'Added survey'
-      end
+      redirect_based_on_commit_type(params[:commit])
     else
       render 'new'
     end
@@ -29,16 +27,10 @@ class SurveysController < ApplicationController
   def update
     @survey.update_attributes(params[:survey])
 
+    flash[:scroll_top] = params[:scroll_top]
+
     if @survey.save
-      if params[:commit] == "Save and continue editing"
-        flash[:notice] = 'Saved survey'
-        flash[:scroll_top] = params[:scroll_top]
-        redirect_to edit_survey_url(@survey)
-      elsif params[:commit] == "Save and preview"
-        redirect_to preview_survey_url(@survey)
-      else
-        redirect_to root_url, notice: 'Saved survey'
-      end
+      redirect_based_on_commit_type(params[:commit])
     else
       render 'edit'
     end
@@ -59,6 +51,17 @@ class SurveysController < ApplicationController
   end
 
   protected
+
+  def redirect_based_on_commit_type(commit)
+    if commit == "Save and continue editing"
+      flash[:notice] = 'Saved survey'
+      redirect_to edit_survey_url(@survey)
+    elsif commit == "Save and preview"
+      redirect_to preview_survey_url(@survey)
+    else
+      redirect_to root_url, notice: "Saved survey"
+    end
+  end
 
   def get_survey
     @survey = current_user.surveys.find(params[:id])
