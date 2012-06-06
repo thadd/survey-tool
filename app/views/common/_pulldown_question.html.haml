@@ -1,4 +1,5 @@
-.clearfix
-  %label{for: question_id(pulldown_question[:id])}= pulldown_question[:text]
-  .input
-    = select 'response[page_answers]', pulldown_question[:id], pulldown_question[:options].collect{|key,value| [value,key]}, {}, {class: 'span7'}
+.control-group
+  .control-label
+    %label{for: question_id(pulldown_question[:id])}= pulldown_question[:text]
+  .controls
+    = select 'response[page_answers]', pulldown_question[:id], pulldown_question[:options].collect{|key,value| [value,key]}, {}, {class: 'span5'}

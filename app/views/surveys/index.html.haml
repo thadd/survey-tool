@@ -6,14 +6,14 @@
 
   - else
     %p
-      = link_to 'Add survey', new_survey_path, class: 'btn primary'
+      = link_to 'Add survey', new_survey_path, class: 'btn btn-primary'
     
-    %h3 Your surveys
-  
-    %ul
+    %h2 Your surveys
+
+    %ul.unstyled#survey-list
       - @surveys.each do |survey|
         %li
-          %h4
+          %h3
             = survey.name
             %small= link_to 'edit', edit_survey_path(survey)
     
@@ -27,8 +27,8 @@
             Responses:
             == #{survey.responses.count} total (#{survey.responses.incomplete.count} incomplete)
           %p
-            = link_to 'Download CSV', survey_responses_path(survey, format: :csv), class: 'btn small info'
-            = link_to 'Clear responses', clear_survey_path(survey), method: :delete, class: 'btn small danger', confirm: "This will permenantly delete all responses to this survey! Are you sure you wish to proceed?"
+            = link_to 'Download CSV', survey_responses_path(survey, format: :csv), class: 'btn btn-small btn-info'
+            = link_to 'Clear responses', clear_survey_path(survey), method: :delete, class: 'btn btn-small btn-danger', confirm: "This will permenantly delete all responses to this survey! Are you sure you wish to proceed?"
 
 - else
   .well

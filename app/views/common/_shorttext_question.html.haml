@@ -1,4 +1,5 @@
-.clearfix
-  %label{for: shorttext_question[:id]}= shorttext_question[:text]
-  .input
-    = text_field_tag question_id(shorttext_question[:id]), '', class: 'span8'
+.control-group
+  .control-label
+    %label{for: shorttext_question[:id]}= shorttext_question[:text]
+  .controls
+    = text_field_tag question_id(shorttext_question[:id]), '', class: 'span6'

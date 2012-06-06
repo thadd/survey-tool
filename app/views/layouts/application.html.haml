@@ -6,12 +6,11 @@
 
     %title WorkplaceResearch.org Surveys
 
-    = stylesheet_link_tag 'http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css'
     = stylesheet_link_tag '/fancybox/jquery.fancybox.css?v=2.0.4'
     = stylesheet_link_tag 'application'
 
+    = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
     = javascript_include_tag 'application'
-    = javascript_include_tag '/edit_area/edit_area_full.js'
     = javascript_include_tag '/fancybox/jquery.fancybox.pack.js?v=2.0.4'
 
     = csrf_meta_tags
@@ -19,33 +18,35 @@
     = yield :head_extras
 
   %body
-    .topbar
-      .topbar-inner
+    .navbar.navbar-fixed-top
+      .navbar-inner
         .container
           %h3
             - if current_user
-              = link_to 'WorkplaceResearch.org Surveys', root_path
+              = link_to 'WorkplaceResearch.org Surveys', root_path, class: 'brand'
             - else
               .brand WorkplaceResearch.org Surveys
 
           - if current_user
-            %ul.nav.secondary-nav
-              %li.dropdown.avatar{"data-dropdown" => "dropdown", style: "background-image: url(#{Gravatar.new(current_user.email).image_url(size: 32, default: :wavatar)});"}
-                = link_to current_user.name, '#', class: 'dropdown-toggle'
+            %ul.nav.pull-right
+              %li.dropdown.avatar{style: "background-image: url(#{Gravatar.new(current_user.email).image_url(size: 32, default: :wavatar)});"}
+                = link_to '#', class: 'dropdown-toggle', "data-toggle" => "dropdown" do
+                  = current_user.name 
+                  %b.caret
                 %ul.dropdown-menu
                   %li= link_to 'Log out', session_path, :method => :delete
 
           - else
             - unless @hide_login_link
-              %ul.nav.secondary-nav
-                = link_to 'Login', '/auth/google'
+              %ul.nav.pull-right
+                %li= link_to 'Login', '/auth/google'
 
     .container
       - if flash.any?
         - if flash[:notice]
-          .alert-message.info
+          .alert.alert-info
             = flash[:notice]
         - if flash[:alert]
-          .alert-message.error= flash[:alert]
+          .alert.alert-error= flash[:alert]
 
       = yield

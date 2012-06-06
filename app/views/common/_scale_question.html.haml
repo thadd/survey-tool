@@ -1,14 +1,14 @@
-.clearfix
-  %label{for: scale_question[:id]}= scale_question[:text]
-  .input
+.control-group
+  .control-label
+    %label{for: scale_question[:id]}= scale_question[:text]
+  .controls
     = radio_button "response[page_answers]", scale_question[:id], "", style: "display:none;"
-    %ul.inputs-list
+    %ul.inputs-list.unstyled
       - @survey.scale_options(scale_question[:scale]).each do |value,text|
         %li
-          %label
-            = radio_button "response[page_answers]", scale_question[:id], value
-            %span
-              - if text
-                == #{text}
-              - else
-                == #{value}
+          = radio_button "response[page_answers]", scale_question[:id], value
+          %span
+            - if text
+              == #{text}
+            - else
+              == #{value}

@@ -34,5 +34,5 @@
       = render partial: '/common/questionset', object: component
     - else
       = debug component
-  .actions
-    %input.btn.primary{type: :submit, value: page == @survey.page_count-1 ? 'Submit responses' : 'Save and continue to next page', title: (preview? ? 'Buttons inactive in preview mode' : nil)}
+  .form-actions
+    %input.btn.btn-primary{type: :submit, value: page == @survey.page_count-1 ? 'Submit responses' : 'Save and continue to next page', title: (preview? ? 'Buttons inactive in preview mode' : nil)}
