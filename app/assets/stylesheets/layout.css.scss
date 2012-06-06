@@ -25,6 +25,10 @@ body {
   padding-top: 15px;
 }
 
+.CodeMirror-scroll {
+  height: 400px;
+}
+
 label {
   font-weight: bold;
 }

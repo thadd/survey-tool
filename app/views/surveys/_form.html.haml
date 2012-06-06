@@ -1,3 +1,7 @@
+- content_for :head_extras do
+  = javascript_include_tag '/codemirror/lib/codemirror.js'
+  = javascript_include_tag '/codemirror/mode/xml/xml.js'
+
 - if @survey.responses.any?
   .alert-message.block-message.error
     %strong Warning!
@@ -17,6 +21,8 @@
   %fieldset
     %legend
       == #{@survey.persisted? ? 'Edit' : 'New'} survey
+
+    = hidden_field_tag :scroll_top, (flash[:scroll_top] ? flash[:scroll_top] : '-1')
 
     .control-group
       .control-label= f.label :name
