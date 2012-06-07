@@ -1,3 +1,4 @@
-= Survey Tool =
+Survey Tool
+===========
 
 Documentation to come later.

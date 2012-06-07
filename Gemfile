@@ -30,3 +30,14 @@ gem 'omniauth'
 gem 'omniauth-openid'
 gem 'nokogiri'
 gem 'thin'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'growl'
+
+  gem 'wirble'
+end
