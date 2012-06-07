@@ -39,5 +39,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'growl'
 
+  gem 'database_cleaner'
+
   gem 'wirble'
 end
