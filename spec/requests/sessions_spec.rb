@@ -30,8 +30,8 @@ describe "Sessions" do
     end
 
     it "should successfully log user out" do
+      visit root_path
       click_link("Log out")
-
       page.should have_link("Login")
     end
   end

@@ -1,6 +1,6 @@
 - if current_user
   - unless @surveys.any?
-    .alert-message.block-message.warning
+    .alert.alert-block.alert-info
       You haven't created any surveys yet. Get started creating your first survey by
       == #{link_to 'clicking here', new_survey_path}.
 
@@ -12,7 +12,7 @@
 
     %ul.unstyled#survey-list
       - @surveys.each do |survey|
-        %li
+        %li[survey]
           %h3
             = survey.name
             %small= link_to 'edit', edit_survey_path(survey)
