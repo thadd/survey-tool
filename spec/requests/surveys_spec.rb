@@ -66,4 +66,20 @@ describe "Surveys" do
       @user.surveys.count.should eq(0)
     end
   end
+
+  describe "Showing dependencies in preview" do
+    before(:each) do
+      @xml = IO.read("#{Rails.root}/spec/fixtures/files/simple_survey.xml")
+      @survey = @user.surveys.create!(name: 'Testing', xml: @xml)
+      visit preview_survey_path(@survey)
+    end
+
+    it "should show page dependencies" do
+      page.should have_selector("#page-1 h2 small", text: "Dependent on q1 having value skip page")
+    end
+
+    it "should show a dependency for a question on a subsequent page" do
+      page.should have_selector("#page-1 .dependent[@title='Dependent on q1 having value skip q2'] #response_page_answers_q2")
+    end
+  end
 end

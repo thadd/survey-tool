@@ -1,0 +1,12 @@
+<survey>
+  <page title="Page 1">
+    <question id="q1" format="shorttext">
+      Question 1
+    </question>
+  </page>
+  <page title="Page 2" depends="q1" dependsvalue="skip page">
+    <question id="q2" format="shorttext" depends="q1" dependsvalue="skip q2">
+      Question 2
+    </question>
+  </page>
+</survey>
