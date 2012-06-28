@@ -4,10 +4,10 @@
       %tr
         %th=questionset[:text]
         - @survey.scale_options(questionset[:scale]).each do |value,text|
-          %th.cell-centered
+          %th.span1.cell-centered
             = value
             %br
-            = text || raw("&nbsp;")
+            =text || raw("&nbsp;")
     %tbody
       - questionset[:questions].each do |question|
         %tr{dependent_options(question, @response)}
